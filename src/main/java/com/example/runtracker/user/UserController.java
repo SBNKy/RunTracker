@@ -4,7 +4,10 @@ import com.example.runtracker.user.dto.UserCreateRequestDto;
 import com.example.runtracker.user.dto.UserResponseDto;
 import com.example.runtracker.user.dto.UserUpdateRequestDto;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -13,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
+@Validated
 public class UserController {
 
     private final UserService userService;
@@ -27,7 +31,9 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDto> getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserResponseDto> getUserById(
+            @PathVariable @NotNull @Positive(message = "ID has to be positive") Long id) {
+
         return ResponseEntity.ok(userService.findById(id));
     }
 
@@ -45,15 +51,19 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserResponseDto> updateUser(@PathVariable Long id,
-                                      @Valid @RequestBody UserUpdateRequestDto user) {
+    public ResponseEntity<UserResponseDto> updateUser(
+            @PathVariable @NotNull @Positive(message = "ID has to be positive") Long id,
+            @Valid @RequestBody UserUpdateRequestDto user) {
+
         UserResponseDto responseDto = userService.updateUser(id, user);
 
         return ResponseEntity.ok(responseDto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(
+            @PathVariable @NotNull @Positive(message = "ID has to be positive") Long id) {
+
         userService.deleteUser(id);
 
         return ResponseEntity.noContent().build();

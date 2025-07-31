@@ -1,19 +1,18 @@
--- Usuwanie tabel jeśli istnieją (dla czystego startu)
 DROP TABLE IF EXISTS runs;
 DROP TABLE IF EXISTS users;
 
--- Tabela users
+-- Users table
 CREATE TABLE users
 (
     id         INTEGER AUTO_INCREMENT PRIMARY KEY,
-    email      VARCHAR(255) UNIQUE NOT NULL,
-    password   VARCHAR(255)        NOT NULL,
     first_name VARCHAR(100),
     last_name  VARCHAR(100),
+    email      VARCHAR(255) UNIQUE NOT NULL,
+    password   VARCHAR(255)        NOT NULL,
     created_at TIMESTAMP NOT NULL
 );
 
--- Tabela runs
+-- Runs table
 CREATE TABLE runs
 (
     id                INTEGER AUTO_INCREMENT PRIMARY KEY,
