@@ -8,14 +8,14 @@ public record UserResponseDto(
         String lastName,
         String email
 ) {
-    public static UserResponseDto from(User user) {
-        return new UserResponseDto(
-                user.getId(),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getEmail()
-        );
-    }
+//    public static UserResponseDto from(User user) {
+//        return new UserResponseDto(
+//                user.getId(),
+//                user.getFirstName(),
+//                user.getLastName(),
+//                user.getEmail()
+//        );
+//    }
 }
 
 

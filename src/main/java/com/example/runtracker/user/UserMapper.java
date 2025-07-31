@@ -1,6 +1,6 @@
 package com.example.runtracker.user;
 
-import com.example.runtracker.user.dto.CreateUserRequestDto;
+import com.example.runtracker.user.dto.UserCreateRequestDto;
 import com.example.runtracker.user.dto.UserResponseDto;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Component
 public class UserMapper {
 
-    public User toEntity(CreateUserRequestDto request) {
+    public User toEntity(UserCreateRequestDto request) {
         User user = new User();
         user.setFirstName(request.firstName());
         user.setLastName(request.lastName());
@@ -21,7 +21,12 @@ public class UserMapper {
     }
 
     public UserResponseDto toResponseDto(User user) {
-        return UserResponseDto.from(user);
+        return new UserResponseDto(
+                user.getId(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getEmail()
+        );
     }
 
 }
